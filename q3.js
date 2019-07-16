@@ -18,8 +18,11 @@ async function main() {
 
         const result2 = await rpc.get_account(result.producer);
         console.log(result2.created);
-    
-    } catch (error) {
+
+        console.log(await rpc.get_currency_balance('eosio.token', result.producer, 'EOS'));
+
+    } 
+    catch (error) {
         console.error(error);
         
     }
