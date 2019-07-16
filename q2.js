@@ -13,10 +13,15 @@ const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), te
 async function main() {
     try {
         const result = await rpc.get_block(300000);
-        const result2 = await rpc.get_timestamp
-        console.log(result2)
-    } catch (error) {
+        console.log(result.producer);
+        console.log(result.timestamp);
+
+        const result2 = await rpc.get_account(result.producer);
+        console.log(result2.created);
+    } 
+    catch (error) {
         console.error(error);
+        
     }
 }
 main();
