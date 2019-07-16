@@ -1,0 +1,25 @@
+{
+  "name": "EOS-BlockChain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qislwujj/EOS-BlockChain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qislwujj/EOS-BlockChain/issues"
+  },
+  "homepage": "https://github.com/qislwujj/EOS-BlockChain#readme",
+  "dependencies": {
+    "eosjs": "^20.0.0",
+    "node-fetch": "^2.6.0",
+    "util": "^0.12.1"
+  }
+}
