@@ -17,12 +17,21 @@ CONTRACT helloworld : public contract {
     //     print("hello,",user);
     // }
 
-    // 컨트랙트 배포자만 사용할수 있게
-    name mkuser = get_self();
-    // name mkuser = name("ibctibct1234");
+    // // 컨트랙트 배포자만 사용할수 있게
+    // name mkuser = get_self();
+    // // name mkuser = name("ibctibct1234");
+    // ACTION hi(name user){  
+    //         check(has_auth(mkuser),"xxxxx");
+    //         // require_auth( get_self() );
+    //     print("hello,",user);
+    // }
+
+
+
+    // 지정한 사람만 사용할 수 있게 하기
     ACTION hi(name user){
-        
-            check(has_auth(mkuser),"xxxxx");
+        require_auth(user);
+            check(has_auth(get_self()) || has_auth("sks123123123"_n) ,"xxxxx");
         print("hello,",user);
     }
     private:
