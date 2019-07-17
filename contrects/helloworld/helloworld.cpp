@@ -12,7 +12,7 @@ CONTRACT helloworld : public contract {
     ACTION hi(name user){
         require_auth(user);
         //계정 검사 코드
-
+            check(has_auth(user),"XXXXX");
         print("hello,",user);
     }
     private:
