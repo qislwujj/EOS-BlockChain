@@ -29,10 +29,30 @@ CONTRACT helloworld : public contract {
 
 
     // 지정한 사람만 사용할 수 있게 하기
+    // ACTION hi(name user){
+    //     require_auth(user);
+    //         check(has_auth(get_self()) || has_auth("sks123123123"_n) ,"xxxxx");
+    //     print("hello,",user);
+    // }
+
+
+
+
+// 계정 유무 확인??
     ACTION hi(name user){
         require_auth(user);
-            check(has_auth(get_self()) || has_auth("sks123123123"_n) ,"xxxxx");
         print("hello,",user);
     }
+
+    ACTION getaccount(name user){
+        require_auth(get_self());
+        print(is_account(user));
+    }
+
+
+
+
+
+
     private:
 };
