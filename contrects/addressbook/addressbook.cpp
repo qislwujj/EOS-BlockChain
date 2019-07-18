@@ -7,8 +7,33 @@ CONTRACT addressbook: public contract {
 public:
 using contract::contract;
 
+ACTION upsert(name user,std::string first_name, std::string last_name, uint32_t age) {
+    require_auth(user);
+    address_index forUpsert(get_self(),get_self().value);
+    auto itr = forUpsert.find(user.value);
 
-ACTION upsert() {}
+    if(itr == forUpsert.end()){
+        forUpsert.emplace(user, [&](auto& row) {
+            row.user = user;
+            row.first_name = first_name;
+            row.last_name = last_name;
+            row.age = age;
+            });
+            print("emplace success");
+    }
+    else{
+        forUpsert.modify(itr,user, [&](auto& row) {
+            row.user = user;
+            row.first_name = first_name;
+            row.last_name = last_name;
+            row.age = age;
+            });
+            print("modify success");
+    }
+
+}
+
+
 
 ACTION insert(name user, std::string first_name, std::string last_name, uint32_t age) {
 require_auth(user);
@@ -27,6 +52,7 @@ row.age = age;
 
 print("insert success");
 }
+
 
 ACTION erase(name user) {
 require_auth(user);
