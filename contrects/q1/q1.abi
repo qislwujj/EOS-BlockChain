@@ -63,7 +63,7 @@
     ],
     "tables": [
         {
-            "name": "people",
+            "name": "allowance",
             "type": "allowance",
             "index_type": "i64",
             "key_names": [],

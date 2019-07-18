@@ -49,7 +49,7 @@ ACTION remove(name user) {
 }
 
 
-ACTION hi(name user){
+ACTION hi(name user)
         require_auth(user);
         
         allowance_index forHi(get_self(), get_self().value);
@@ -72,5 +72,5 @@ struct [[eosio::table]] allowance {
     uint64_t primary_key() const { return user.value; }
     };
     
-    typedef multi_index<"people"_n, allowance> allowance_index;
+    typedef multi_index<"allowance"_n, allowance> allowance_index;
 };
