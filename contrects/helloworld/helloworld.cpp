@@ -1,3 +1,8 @@
+// ssh root@183.102.228.122 -p 1027
+// qortjr1234
+// cd /home/ibct/baekseok/eosio-biosboot
+
+
 #include <eosiolib/eosio.hpp>
 
 using namespace eosio;
