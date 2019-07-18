@@ -4,6 +4,7 @@ using namespace eosio;
 
 CONTRACT addressboo: public contract{
     public:
+    using contract::contract;
         ACTION upsert(){}
 
 
