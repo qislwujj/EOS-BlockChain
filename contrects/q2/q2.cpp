@@ -71,7 +71,7 @@ ACTION countuser(name user){
 
 
 ACTION eraseall() {
-    // require_auth(user);
+    require_auth(get_self());
 
     secondary_index forErase(get_self(), get_self().value);
     // auto itr = forErase.require_find(user.value, "no account");
