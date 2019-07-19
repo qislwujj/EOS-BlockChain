@@ -15,6 +15,12 @@ CONTRACT geteos: public contract{
             print(itr->balance);
         }
 
+
+        ACTION gettokeninfo(asset& token){
+            print(token.symbol.code().to_string());
+            print(token.symbol.precision());
+        }
+
     private:
         TABLE account{
             asset balance;
