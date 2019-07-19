@@ -75,11 +75,15 @@ ACTION eraseall() {
 
     secondary_index forErase(get_self(), get_self().value);
     // auto itr = forErase.require_find(user.value, "no account");
+
     for(auto itr = forErase.begin(); itr != forErase.end();){
         
         itr= forErase.erase(itr);
     }
     
+    //while(itr != forErase.end()){
+    //     itr= forerase.erase(itr);
+    // }
 
     print("eraseall success");
 }
