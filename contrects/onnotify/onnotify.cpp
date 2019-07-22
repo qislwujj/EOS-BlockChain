@@ -1,7 +1,8 @@
 #include <eosio/eosio.hpp> 
 #include <eosio/asset.hpp>
-//table에 지출내역 저장하기
+//각 테이블에 name type변수를 선언  => EOS를 보낸사람 || EOS를 받은사람 그리고 얼마나 받았는지 기록
 using namespace eosio;
+using namespace std;
 
 CONTRACT onnotify: public contract {
     public:
@@ -15,10 +16,12 @@ CONTRACT onnotify: public contract {
         
         if(from == get_self()) {
             outs myTable(get_self(), get_self().value);
-            
-            if(myTable.begin() == myTable.end()) {
-                
+            auto itr = myTable.find(to.value);
+
+
+            if(itr == myTable.end()) {
                 myTable.emplace(from, [&](auto& row) {
+                    row.user = to;
                     row.balance = quantity;
                 });
             }
@@ -32,8 +35,11 @@ CONTRACT onnotify: public contract {
 
         else if(to == get_self()){
             ins myTable(get_self(),get_self().value);
-            if(myTable.begin() == myTable.end()){
+            auto itr = myTable.find(from.value);
+
+            if(itr == myTable.end()){
                 myTable.emplace(to,[&](auto& row){
+                    row.user = from;
                     row.balance = quantity;
                 });
             }
@@ -44,21 +50,17 @@ CONTRACT onnotify: public contract {
                 });
             }
         }
-
-
-        else {
-            print("you are not from");
-        }
     }
 
 
     private:
     TABLE outstruct {
         asset balance;
-        uint64_t primary_key() const { return balance.symbol.code().raw(); }
+        name user;
+        uint64_t primary_key() const { return user.value; }
         }; 
     
-// typedef multi_index<"out"_n, outstruct,indexed_by<"in"_n,const_mem_fun<instruct>> > outs;
-typedef multi_index<"out"_n, outstruct> outs;
-typedef multi_index<"in"_n, outstruct> ins;
+
+typedef multi_index<"out3"_n, outstruct> outs;
+typedef multi_index<"in3"_n, outstruct> ins;
 };
