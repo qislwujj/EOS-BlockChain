@@ -1,6 +1,6 @@
 #include <eosio/eosio.hpp> 
 #include <eosio/asset.hpp>
-
+//table에 지출내역 저장하기
 using namespace eosio;
 
 CONTRACT onnotify: public contract {
@@ -9,34 +9,56 @@ CONTRACT onnotify: public contract {
     
     ACTION dummy() {}
     
-    
     [[eosio::on_notify("eosio.token::transfer")]]
+    
     void ontransfer(name from, name to, asset quantity, std::string memo) {
-        check(from == get_self(), "no out");
         
-        
-        outs myTable(get_self(), get_self().value);
-        
-        if(myTable.begin() == myTable.end()) {
+        if(from == get_self()) {
+            outs myTable(get_self(), get_self().value);
             
-            myTable.emplace(from, [&](auto& row) {
+            if(myTable.begin() == myTable.end()) {
                 
-                row.balance = quantity;
-                }); 
-                }
-                else {
-                    auto itr = myTable.begin();
-                    
-                    myTable.modify(itr, from, [&](auto& row) {
-                        row.balance += quantity;
-                    });
-                }
+                myTable.emplace(from, [&](auto& row) {
+                    row.balance = quantity;
+                });
+            }
+            else {
+                auto itr = myTable.begin();
+                myTable.modify(itr, from, [&](auto& row) {
+                    row.balance += quantity;
+                });
+            }
+        }
+
+        else if(to == get_self()){
+            ins myTable(get_self(),get_self().value);
+            if(myTable.begin() == myTable.end()){
+                myTable.emplace(to,[&](auto& row){
+                    row.balance = quantity;
+                });
+            }
+            else {
+                auto itr = myTable.begin();
+                myTable.modify(itr,to,[&](auto& row) {
+                    row.balance +=quantity;
+                });
+            }
+        }
+
+
+        else {
+            print("you are not from");
+        }
     }
+
+
     private:
     TABLE outstruct {
         asset balance;
         uint64_t primary_key() const { return balance.symbol.code().raw(); }
-    };
-                            
-    typedef multi_index<"out"_n, outstruct> outs;
+        }; 
+    
+// typedef multi_index<"out"_n, outstruct,indexed_by<"in"_n,const_mem_fun<instruct>> > outs;
+typedef multi_index<"out"_n, outstruct> outs;
+typedef multi_index<"in"_n, outstruct> ins;
 };
