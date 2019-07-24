@@ -20,17 +20,12 @@ ACTION eraseall(){
         while(itr != forErase.end()){
             itr=forErase.erase(itr);
         }
-        // Receive forErasetwo(get_self(), get_self().value);
-        // auto itrtwo = forErasetwo.begin();
-        // while(itrtwo != forErasetwo.end()){
-        //     itrtwo=forErasetwo.erase(itrtwo);
-        // }
         itrSendScope = fc.erase(itrSendScope);
+        print("SenderScope삭제");
     }
 
     RscopeList fctwo(get_self(), get_self().value );
     auto itrReceiveScope = fctwo.begin();
-
     while(itrReceiveScope != fctwo.end()) {
         Receive forErasetwo(get_self(), get_self().value);
         auto itrtwo = forErasetwo.begin();
@@ -38,8 +33,20 @@ ACTION eraseall(){
             itrtwo=forErasetwo.erase(itrtwo);
         }
         itrReceiveScope = fctwo.erase(itrReceiveScope);
+        print("ReceiveScope삭제");
     }
 }
+
+// ACTION selecterase(name user) {
+//     SscopeList fc(get_self(), get_self().value);
+//     auto itrsendScope = fc.require_find(user.value, "no scope");
+//     fc.erase(itrScope);
+
+//     Send fctwo(get_self(), get_self().value);
+//     auto itr = fctwo.require_find(user.value, "no user");
+//     fctwo.erase(itr);
+// }
+
 
 [[eosio::on_notify("eosio.token::transfer")]]
 void ontransfer(name from, name to, asset quantity, std::string memo) {
