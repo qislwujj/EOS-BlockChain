@@ -24,16 +24,6 @@
             ]
         },
         {
-            "name": "selecterase",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                }
-            ]
-        },
-        {
             "name": "tradingbook_struct",
             "base": "",
             "fields": [
@@ -61,11 +51,6 @@
         {
             "name": "eraseall",
             "type": "eraseall",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "selecterase",
-            "type": "selecterase",
             "ricardian_contract": ""
         }
     ],

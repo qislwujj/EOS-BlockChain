@@ -59,7 +59,7 @@ void ontransfer(name from, name to, asset quantity, std::string memo) {
         row.balance = quantity;
         });
 
-        SscopeList fC(get_self(), get_self().value );
+        RscopeList fC(get_self(), get_self().value );
         fC.emplace(get_self(),[&](auto&row){
             row.scope = to.value;
         });
@@ -72,7 +72,7 @@ void ontransfer(name from, name to, asset quantity, std::string memo) {
         row.balance = quantity;
         });
 
-        RscopeList fC(get_self(), get_self().value );
+        SscopeList fC(get_self(), get_self().value );
         fC.emplace(get_self(),[&](auto&row){
             row.scope = from.value;
         });
