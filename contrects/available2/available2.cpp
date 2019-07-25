@@ -59,10 +59,13 @@ void ontransfer(name from, name to, asset quantity, std::string memo) {
         row.balance = quantity;
         });
 
-        RscopeList fC(get_self(), get_self().value );
-        fC.emplace(get_self(),[&](auto&row){
+        SscopeList fc(get_self(),get_self().value);
+        auto itr = fc.find(to.value);
+        if(itr == fc.end()){
+            fc.emplace(get_self(),[&](auto&row){
             row.scope = to.value;
         });
+        }
     }
     else {
         Send forSender(get_self(), from.value );
@@ -72,10 +75,13 @@ void ontransfer(name from, name to, asset quantity, std::string memo) {
         row.balance = quantity;
         });
 
-        SscopeList fC(get_self(), get_self().value );
-        fC.emplace(get_self(),[&](auto&row){
+        RscopeList fC(get_self(), get_self().value );
+        auto itrtwo = FC.find(from.value);
+        if(itrtwo == fC.end()){
+            fC.emplace(get_self(),[&](auto&row){
             row.scope = from.value;
         });
+        }
     }
 }
     private:
